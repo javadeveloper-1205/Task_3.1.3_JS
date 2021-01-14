@@ -1,10 +1,8 @@
-package model;
+package app.model;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
@@ -32,7 +30,6 @@ public class User implements UserDetails {
 
 
     @ManyToMany(fetch = FetchType.EAGER)
-    JoinTable()
     private Set<Role> roles;
 
 

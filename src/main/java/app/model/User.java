@@ -22,6 +22,12 @@ public class User implements UserDetails {
     @Column(name = "lastName")
     private String lastName;
 
+    @Column(name = "age")
+    private int age;
+
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "login")
     private String login;
 
@@ -30,17 +36,23 @@ public class User implements UserDetails {
 
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles;
+
 
 
     public User() {
     }
 
-    public User(int id, String name, String password, String lastName, Set<Role> roles) {
+    public User(int id, String name, String lastName, int age, String email, String login, String password, Set<Role> roles) {
         this.id = id;
         this.name = name;
-        this.password = password;
         this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.login = login;
+        this.password = password;
         this.roles = roles;
     }
 
@@ -60,6 +72,30 @@ public class User implements UserDetails {
         this.name = name;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getLogin() {
         return login;
     }
@@ -72,14 +108,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public Set<Role> getRoles() {
         return roles;
     }
@@ -87,6 +115,20 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", lastName='" + lastName + '\'' +
+//                ", age=" + age +
+//                ", email='" + email + '\'' +
+//                ", login='" + login + '\'' +
+//                ", password='" + password + '\'' +
+//                ", roles=" + roles +
+//                '}';
+//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

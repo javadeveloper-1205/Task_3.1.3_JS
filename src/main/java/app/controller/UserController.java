@@ -26,9 +26,10 @@ public class UserController {
     }
 
     @GetMapping("/admin/")
-    public ModelAndView printAllUsers(Model model) {
+    public String printAllUsers(Model model) {
         model.addAttribute("listUsers", userService.findAllUsers());
-        return new ModelAndView("all-users");
+        model.addAttribute("user", new User());
+        return "all-users";
     }
 
     @GetMapping("/admin/addNewUser")

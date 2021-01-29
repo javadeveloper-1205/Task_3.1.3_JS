@@ -45,8 +45,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(int id, String name, String lastName, int age, String email, String login, String password, Set<Role> roles) {
-        this.id = id;
+    public User(String name, String lastName, int age, String email, String login, String password, Set<Role> roles) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
@@ -115,20 +114,6 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", lastName='" + lastName + '\'' +
-//                ", age=" + age +
-//                ", email='" + email + '\'' +
-//                ", login='" + login + '\'' +
-//                ", password='" + password + '\'' +
-//                ", roles=" + roles +
-//                '}';
-//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

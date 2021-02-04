@@ -28,8 +28,8 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "login")
-    private String login;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -40,17 +40,16 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles;
 
-
-
     public User() {
     }
 
-    public User(String name, String lastName, int age, String email, String login, String password, Set<Role> roles) {
+    public User(int id, String name, String lastName, int age, String email, String username, String password, Set<Role> roles) {
+        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
-        this.login = login;
+        this.username = username;
         this.password = password;
         this.roles = roles;
     }
@@ -95,12 +94,8 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String login) {
+        this.username = login;
     }
 
     public void setPassword(String password) {
@@ -127,7 +122,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return username;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package app.dao;
 
+import app.model.Role;
 import app.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -41,8 +42,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findUserByNameDao(String username) {
-        TypedQuery<User> typedQuery = (TypedQuery<User>) entityManager.createQuery("FROM User u WHERE u.login=:username");
+    public Role findRoleByUsername(String role) {
+        return (Role) entityManager
+                .createQuery("select r from Role r where lower(r.name) like :role")
+                .setParameter("role", "%" + role.toLowerCase() + "%")
+                .getSingleResult();
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        TypedQuery<User> typedQuery = (TypedQuery<User>) entityManager.createQuery("FROM User u WHERE u.username=:username");
         typedQuery.setParameter("username", username);
         User user = typedQuery.getSingleResult();
         return user;

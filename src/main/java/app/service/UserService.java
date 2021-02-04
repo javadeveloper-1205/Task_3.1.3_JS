@@ -1,5 +1,6 @@
 package app.service;
 
+import app.model.Role;
 import app.model.User;
 
 import java.util.List;
@@ -18,5 +19,8 @@ public interface UserService {
 
     User getUserByName(String name);
 
+    User getUserByUsername(String username);
+
+    Role findRoleByUsername(String role);
 }
 

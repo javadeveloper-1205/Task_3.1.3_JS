@@ -1,6 +1,7 @@
 package app.service;
 
 import app.dao.UserDao;
+import app.model.Role;
 import app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByUsername(String username) {
+        return userDao.findUserByUsername(username);
+    }
+
+    @Override
+    @Transactional
     public void editUser(User user) {
         userDao.saveUserDao(user);
     }
@@ -42,7 +49,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Role findRoleByUsername(String role) {
+        return userDao.findRoleByUsername(role);
+    }
+
+    @Override
     public User getUserByName(String name) {
-        return userDao.findUserByNameDao(name);
+        return userDao.findUserByUsername(name);
     }
 }

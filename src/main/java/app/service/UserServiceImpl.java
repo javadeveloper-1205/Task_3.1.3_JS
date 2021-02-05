@@ -49,11 +49,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Role findRoleByUsername(String role) {
         return userDao.findRoleByUsername(role);
     }
 
     @Override
+    @Transactional
     public User getUserByName(String name) {
         return userDao.findUserByUsername(name);
     }

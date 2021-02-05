@@ -10,7 +10,6 @@
 <h2>Edit user</h2>
 <form th:object="${user}" th:action="@{/admin/saveUser}" method="post">
     <div class="card-body">
-        <!--                           <h3><a href="addNewUser">Add User</a></h3>&ndash;&gt;-->
         <div class="text-center">
 
             <strong>
@@ -94,13 +93,6 @@
                     role="button">Edit
             </button>
 
-<!--                <button class="btn" data-dismiss="modal">Close</button>-->
-
-
-                <!--                <button class="btn btn-secondary" th:href="@{'/admin/' + ${user.id}}"-->
-<!--                        role="button">Close-->
-<!--                </button>-->
-
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
                     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
                     crossorigin="anonymous"></script>
@@ -112,18 +104,3 @@
 </form>
 </body>
 </html>
-
-<!--<br/>-->
-<!--<form th:object="${user}" th:action="@{/admin/saveUser}" method="post">-->
-<!--    <table>-->
-<!--        <tr>-->
-<!--            <td>User Firstname</td>-->
-<!--            <td><input type="text" th:field="*{name}"/></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td>User lastName</td>-->
-<!--            <td><input type="text" th:field="*{lastName}"/></td>-->
-<!--        </tr>-->
-<!--        <td><button type="submit">Update</button></td>-->
-<!--    </table>-->
-<!--</form>-->

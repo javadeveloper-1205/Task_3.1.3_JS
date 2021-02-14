@@ -4,6 +4,8 @@ import app.model.Role;
 import app.model.User;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 public interface UserService {
 
@@ -17,10 +19,9 @@ public interface UserService {
 
     void deleteUserById(int id);
 
-    User getUserByName(String name);
-
     User getUserByUsername(String username);
 
-    Role findRoleByUsername(String role);
+    Set<Role> authorities(String[] roleNames);
+
 }
 

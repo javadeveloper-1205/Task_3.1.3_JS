@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -42,10 +43,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Role findRoleByUsername(String role) {
+    public Role findRoleByUsername(String userName) {
         return (Role) entityManager
                 .createQuery("select r from Role r where lower(r.name) like :role")
-                .setParameter("role", "%" + role.toLowerCase() + "%")
+                .setParameter("role", "%" + userName + "%")
                 .getSingleResult();
     }
 
@@ -53,7 +54,11 @@ public class UserDaoImpl implements UserDao {
     public User findUserByUsername(String username) {
         TypedQuery<User> typedQuery = (TypedQuery<User>) entityManager.createQuery("FROM User u WHERE u.username=:username");
         typedQuery.setParameter("username", username);
-        User user = typedQuery.getSingleResult();
-        return user;
+        Optional<User> user = Optional.ofNullable(typedQuery.getSingleResult());
+        return user.orElse(null);
     }
 }
+
+
+
+

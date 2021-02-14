@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service("userServiceImpl")
 public class UserServiceImpl implements UserService {
@@ -26,6 +29,21 @@ public class UserServiceImpl implements UserService {
         userDao.addUserDao(user);
     }
 
+    //        Set<Role> roleSet = new HashSet<>();
+//        for (String role : roleNames) {
+//            roleSet.add(userService.findRoleByUsername(role));
+//        }
+//        user.setRoles(roleSet);
+
+    @Transactional
+    public Set<Role> authorities(String[] roleNames) {
+        Set<Role> roleSet = new HashSet<>();
+        for (String role : roleNames) {
+            roleSet.add(userDao.findRoleByUsername(role));
+        }
+        return roleSet;
+    }
+
     @Override
     public User getUserByUsername(String username) {
         return userDao.findUserByUsername(username);
@@ -34,6 +52,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void editUser(User user) {
+        User old = userDao.findUserByUsername(user.getUsername());
+        old.setAge(user.getId());
+        old.setEmail(user.getEmail());
+        old.setLastName(user.getLastName());
+        old.setName(user.getName());
+        old.setPassword(user.getPassword());
+        old.setRoles(user.getRoles());
+        old.setUsername(user.getUsername());
+
         userDao.saveUserDao(user);
     }
 
@@ -48,15 +75,4 @@ public class UserServiceImpl implements UserService {
         userDao.deleteUserDao(id);
     }
 
-    @Override
-    @Transactional
-    public Role findRoleByUsername(String role) {
-        return userDao.findRoleByUsername(role);
-    }
-
-    @Override
-    @Transactional
-    public User getUserByName(String name) {
-        return userDao.findUserByUsername(name);
-    }
 }

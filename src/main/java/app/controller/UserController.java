@@ -10,8 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import app.service.UserService;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Controller
 public class UserController {
@@ -46,11 +45,7 @@ public class UserController {
     public ModelAndView saveUser(@ModelAttribute("user") User user,
                                  @RequestParam(value = "roleNames", required = false) String[] roleNames) {
         System.out.println(Arrays.toString(roleNames));
-        Set<Role> roleSet = new HashSet<>();
-        for (String role : roleNames) {
-            roleSet.add(userService.findRoleByUsername(role));
-        }
-        user.setRoles(roleSet);
+        user.setRoles(userService.authorities(roleNames));
         userService.addUser(user);
         return new ModelAndView("redirect:/admin");
     }
@@ -61,15 +56,12 @@ public class UserController {
         return new ModelAndView("update-user");
     }
 
+
     @PostMapping("/admin/edit/{id}")
     public ModelAndView viewEditUserForm(@ModelAttribute("user") User user,
                                          @RequestParam(value = "roleNames", required = false) String[] roleNames) {
         System.out.println(Arrays.toString(roleNames));
-        Set<Role> roleSet = new HashSet<>();
-        for (String role : roleNames) {
-            roleSet.add(userService.findRoleByUsername(role));
-        }
-        user.setRoles(roleSet);
+        user.setRoles(userService.authorities(roleNames));
         userService.editUser(user);
         return new ModelAndView("redirect:/admin");
     }

@@ -6,9 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -43,21 +41,37 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Role findRoleByUsername(String userName) {
-        return (Role) entityManager
-                .createQuery("select r from Role r where lower(r.name) like :role")
-                .setParameter("role", "%" + userName + "%")
-                .getSingleResult();
+    public Optional<User> findUserByUsernameOptional(String username) {
+        User user = new User();
+        try {
+            user = (User) entityManager.createQuery("FROM User u WHERE u.username=:username").setParameter("username", username).getSingleResult();
+        } catch (Exception E) {
+        }
+        return Optional.ofNullable(user);
     }
+
+//    @Override
+//    public Optional<Role> findRoleByUsername(Optional<String> userName) {
+//        Role role = new Role();
+//        try {
+//            role = (Role) entityManager
+//                    .createQuery("select r from Role r where lower(r.name) like :role")
+//                    .setParameter("role", "%" + userName + "%")
+//                    .getSingleResult();
+//        } catch (Exception E) {
+//        }
+//        return Optional.ofNullable(role);
+//    }
 
     @Override
     public User findUserByUsername(String username) {
-        TypedQuery<User> typedQuery = (TypedQuery<User>) entityManager.createQuery("FROM User u WHERE u.username=:username");
-        typedQuery.setParameter("username", username);
-        Optional<User> user = Optional.ofNullable(typedQuery.getSingleResult());
-        return user.orElse(null);
+        return (User) entityManager.createQuery("FROM User u WHERE u.username=:username").
+                setParameter("username", username).
+                getSingleResult();
     }
 }
+
+
 
 
 

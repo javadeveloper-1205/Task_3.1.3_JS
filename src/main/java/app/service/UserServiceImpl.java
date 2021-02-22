@@ -1,5 +1,6 @@
 package app.service;
 
+import app.dao.RoleDao;
 import app.dao.UserDao;
 import app.model.Role;
 import app.model.User;
@@ -18,6 +19,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    private RoleDao roleDao;
+
+    @Autowired
+    public UserServiceImpl(RoleDao roleDao) {
+        this.roleDao = roleDao;
+    }
+
     @Override
     public List<User> findAllUsers() {
         return userDao.getAllUsersDao();
@@ -29,38 +37,22 @@ public class UserServiceImpl implements UserService {
         userDao.addUserDao(user);
     }
 
-    //        Set<Role> roleSet = new HashSet<>();
-//        for (String role : roleNames) {
-//            roleSet.add(userService.findRoleByUsername(role));
-//        }
-//        user.setRoles(roleSet);
-
     @Transactional
     public Set<Role> authorities(String[] roleNames) {
-        Set<Role> roleSet = new HashSet<>();
-        for (String role : roleNames) {
-            roleSet.add(userDao.findRoleByUsername(role));
-        }
+        Set<Role> roleSet = roleDao.findRolesByRoleNames(roleNames);
+        System.out.println(roleSet);
         return roleSet;
     }
 
     @Override
     public User getUserByUsername(String username) {
-        return userDao.findUserByUsername(username);
+        Optional<User> user = userDao.findUserByUsernameOptional(username);
+        return user.get();
     }
 
     @Override
     @Transactional
     public void editUser(User user) {
-        User old = userDao.findUserByUsername(user.getUsername());
-        old.setAge(user.getId());
-        old.setEmail(user.getEmail());
-        old.setLastName(user.getLastName());
-        old.setName(user.getName());
-        old.setPassword(user.getPassword());
-        old.setRoles(user.getRoles());
-        old.setUsername(user.getUsername());
-
         userDao.saveUserDao(user);
     }
 
@@ -76,3 +68,20 @@ public class UserServiceImpl implements UserService {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        for (String role : roleNames) {
+//            roleSet.add(userDao.findRoleByUsername(role));
+//        }

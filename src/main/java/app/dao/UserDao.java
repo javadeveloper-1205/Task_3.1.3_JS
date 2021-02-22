@@ -5,6 +5,7 @@ import app.model.User;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface UserDao {
 
@@ -20,7 +21,7 @@ public interface UserDao {
 
    User findUserByUsername(String username);
 
-    Role findRoleByUsername(String role);
+    Optional <User> findUserByUsernameOptional(String username);
 
 }
 

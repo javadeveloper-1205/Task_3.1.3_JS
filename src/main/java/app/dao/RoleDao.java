@@ -6,4 +6,5 @@ import java.util.Set;
 
 public interface RoleDao {
     Set<Role> findRolesByRoleNames(String [] roleNames);
+    Set<Role> findAllRoles();
 }

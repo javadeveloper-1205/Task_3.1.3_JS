@@ -1,6 +1,5 @@
 package app.controller;
 
-import app.model.Role;
 import app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,12 +31,14 @@ public class UserController {
     public String printAllUsers(Model model) {
         model.addAttribute("listUsers", userService.findAllUsers());
         model.addAttribute("user", new User());
+        model.addAttribute("listRoles", userService.getAllRoles());
         return "all-users";
     }
 
     @GetMapping("/admin/addNewUser")
     public ModelAndView addNewUser(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("listRoles", userService.getAllRoles());
         return new ModelAndView("user-info");
     }
 
@@ -53,6 +54,7 @@ public class UserController {
     @GetMapping("/admin/updateUser/{id}")
     public ModelAndView editUser(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.findUserById(id));
+        model.addAttribute("listRoles", userService.getAllRoles());
         return new ModelAndView("update-user");
     }
 

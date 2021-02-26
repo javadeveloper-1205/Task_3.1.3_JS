@@ -284,8 +284,10 @@
 
                                             <select class="custom-select" name="roleNames"
                                                     id="roles" multiple>
-                                                <option value="ROLE_ADMIN">Admin</option>
-                                                <option value="ROLE_USER">User</option>
+                                                <option th:each="role : ${listRoles}"
+                                                        th:value="${role.name}"
+                                                        th:text="${role.name}">Roles
+                                                </option>
                                             </select>
                                         </strong>
                                         <div class="text-center">

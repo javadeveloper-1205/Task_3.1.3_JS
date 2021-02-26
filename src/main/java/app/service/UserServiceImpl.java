@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
         userDao.addUserDao(user);
     }
 
+    @Override
     @Transactional
     public Set<Role> authorities(String[] roleNames) {
         Set<Role> roleSet = roleDao.findRolesByRoleNames(roleNames);
@@ -44,6 +45,13 @@ public class UserServiceImpl implements UserService {
         return roleSet;
     }
 
+    @Override
+    public Set<Role> getAllRoles() {
+        Set<Role> role = roleDao.findAllRoles();
+        return role;
+    }
+
+    @Transactional
     @Override
     public User getUserByUsername(String username) {
         Optional<User> user = userDao.findUserByUsernameOptional(username);
@@ -68,18 +76,6 @@ public class UserServiceImpl implements UserService {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //        for (String role : roleNames) {

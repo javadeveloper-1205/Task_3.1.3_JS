@@ -17,10 +17,17 @@ public class RoleDaoImpl implements RoleDao {
     private EntityManager entityManager;
 
     @Override
-    public Set<app.model.Role> findRolesByRoleNames(String[] roleNames) {
+    public Set<Role> findRolesByRoleNames(String[] roleNames) {
         List<Role> roles = entityManager
-                .createQuery("From Role role where role.name in (:names)")
+                .createQuery("FROM Role role WHERE role.name IN (:names)")
                 .setParameter("names", Arrays.asList(roleNames))
+                .getResultList();
+        return new HashSet<>(roles);
+    }
+    @Override
+    public Set<Role> findAllRoles() {
+        List<Role> roles = entityManager
+                .createQuery("FROM Role")
                 .getResultList();
         return new HashSet<>(roles);
     }

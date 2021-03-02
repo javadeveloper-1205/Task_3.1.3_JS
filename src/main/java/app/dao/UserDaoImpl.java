@@ -50,19 +50,6 @@ public class UserDaoImpl implements UserDao {
         return Optional.ofNullable(user);
     }
 
-//    @Override
-//    public Optional<Role> findRoleByUsername(Optional<String> userName) {
-//        Role role = new Role();
-//        try {
-//            role = (Role) entityManager
-//                    .createQuery("select r from Role r where lower(r.name) like :role")
-//                    .setParameter("role", "%" + userName + "%")
-//                    .getSingleResult();
-//        } catch (Exception E) {
-//        }
-//        return Optional.ofNullable(role);
-//    }
-
     @Override
     public User findUserByUsername(String username) {
         return (User) entityManager.createQuery("FROM User u WHERE u.username=:username").

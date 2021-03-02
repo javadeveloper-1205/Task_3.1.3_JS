@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 
 @Controller
+@RequestMapping("users")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -32,7 +33,7 @@ public class UserController {
         model.addAttribute("listUsers", userService.findAllUsers());
         model.addAttribute("user", new User());
         model.addAttribute("listRoles", userService.getAllRoles());
-        return "all-users";
+        return "all-users";//all-users
     }
 
     @GetMapping("/admin/addNewUser")

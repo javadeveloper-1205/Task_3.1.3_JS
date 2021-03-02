@@ -23,6 +23,6 @@ public interface UserService {
 
     Set<Role> authorities(String[] roleNames);
 
-    Set<Role>getAllRoles();
+    Set<Role> getAllRoles();
 }
 

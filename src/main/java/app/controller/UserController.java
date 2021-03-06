@@ -60,14 +60,14 @@ public class UserController {
     }
 
 
-    @PostMapping("/admin/edit/{id}")
-    public ModelAndView viewEditUserForm(@ModelAttribute("user") User user,
-                                         @RequestParam(value = "roleNames", required = false) String[] roleNames) {
-        System.out.println(Arrays.toString(roleNames));
-        user.setRoles(userService.authorities(roleNames));
-        userService.editUser(user);
-        return new ModelAndView("redirect:/admin");
-    }
+//    @PostMapping("/admin/edit/{id}")
+//    public ModelAndView viewEditUserForm(@ModelAttribute("user") User user,
+//                                         @RequestParam(value = "roleNames", required = false) String[] roleNames) {
+//        System.out.println(Arrays.toString(roleNames));
+//        user.setRoles(userService.authorities(roleNames));
+//        userService.editUser(user);
+//        return new ModelAndView("redirect:/admin");
+//    }
 
     @GetMapping("/admin/delete/{id}")
     public ModelAndView deleteUser(@PathVariable(name = "id") int id) {

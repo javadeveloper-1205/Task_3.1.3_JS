@@ -60,8 +60,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void editUser(User user) {
-        userDao.saveUserDao(user);
+    public void editUser(User user, int id, String [] roleNames) {
+        User oldUser = new User();
+        oldUser = userDao.findUserDao(id);
+        oldUser.setUsername(user.getUsername());
+        oldUser.setLastName(user.getLastName());
+        oldUser.setAge(user.getAge());
+        oldUser.setEmail(user.getEmail());
+        oldUser.setPassword(user.getPassword());
+
+        oldUser.setRoles(authorities(roleNames));
+        userDao.saveUserDao(oldUser);
     }
 
     @Override
@@ -76,8 +85,3 @@ public class UserServiceImpl implements UserService {
     }
 
 }
-
-
-//        for (String role : roleNames) {
-//            roleSet.add(userDao.findRoleByUsername(role));
-//        }

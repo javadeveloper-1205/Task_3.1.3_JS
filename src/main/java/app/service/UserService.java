@@ -13,7 +13,7 @@ public interface UserService {
 
     void addUser(User user);
 
-    void editUser(User user);
+    void editUser(User user, int id, String [] roleNames);
 
     User findUserById(int id);
 
@@ -24,5 +24,7 @@ public interface UserService {
     Set<Role> authorities(String[] roleNames);
 
     Set<Role> getAllRoles();
+
+
 }
 
